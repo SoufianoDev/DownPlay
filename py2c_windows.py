@@ -66,12 +66,7 @@ def python_version() -> str:
 
 
 def site_packages() -> str:
-    py = venv_path("python.exe")
-    out = subprocess.check_output(
-        [str(py), "-c", "import site; print(site.getsitepackages()[0])"],
-        text=True,
-    )
-    return out.strip()
+    return str(VENV / "Lib" / "site-packages")
 
 
 def cython_embed(verbose: bool, mode: str) -> None:
