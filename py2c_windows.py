@@ -40,25 +40,25 @@ def ensure_venv(auto_install: bool, verbose: bool) -> None:
         log("Creating virtual environment")
         venv.EnvBuilder(with_pip=True).create(VENV)
 
-    pip = venv_path("pip.exe")
+    py = venv_path("python.exe")
     cython = venv_path("cython.exe")
     should_install = auto_install or not cython.exists()
     if not should_install:
         return
 
     log("Installing build/runtime dependencies")
-    run([str(pip), "install", "--upgrade", "pip", "wheel", "setuptools"], verbose=verbose)
-    run([str(pip), "install", "--upgrade", "cython"], verbose=verbose)
+    run([str(py), "-m", "pip", "install", "--upgrade", "pip", "wheel", "setuptools"], verbose=verbose)
+    run([str(py), "-m", "pip", "install", "--upgrade", "cython"], verbose=verbose)
 
     requirements = ROOT / "requirements.txt"
     if requirements.exists():
-        run([str(pip), "install", "--upgrade", "-r", str(requirements)], verbose=verbose)
+        run([str(py), "-m", "pip", "install", "--upgrade", "-r", str(requirements)], verbose=verbose)
     else:
-        run([str(pip), "install", "--upgrade", "yt-dlp"], verbose=verbose)
+        run([str(py), "-m", "pip", "install", "--upgrade", "yt-dlp"], verbose=verbose)
 
     build_requirements = ROOT / "requirements-build.txt"
     if build_requirements.exists():
-        run([str(pip), "install", "--upgrade", "-r", str(build_requirements)], verbose=verbose)
+        run([str(py), "-m", "pip", "install", "--upgrade", "-r", str(build_requirements)], verbose=verbose)
 
 
 def python_version() -> str:
