@@ -384,7 +384,7 @@ int wmain(int argc, wchar_t **argv)
 		TRUE,
 		0,
 		NULL,
-		temp_root,
+		NULL,
 		&si,
 		&pi);
 	if (!ok)
