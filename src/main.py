@@ -239,8 +239,8 @@ def build_ytdlp_options(args, mode, tracker):
     has_ffmpeg, ffmpeg_dir = check_ffmpeg()
     
     if has_ffmpeg:
-        # High quality: Download best separate tracks and merge them cleanly
-        format_selector = 'bestvideo+bestaudio/best'
+        # High quality: Download best separate tracks and merge them cleanly, preferring AAC (m4a) audio for universal compatibility
+        format_selector = 'bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best'
         merge_format = 'mp4'
         postprocessors = [{
             'key': 'FFmpegMerger',
