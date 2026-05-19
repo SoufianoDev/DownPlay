@@ -4,7 +4,7 @@
 #include <windows.h>
 
 #define MARKER "\n__DOWNPLAY_PAYLOAD_V1__\n"
-#define PATHBUF 32768
+#define PATHBUF 2048
 
 static int mkdirs_w(const wchar_t *path)
 {
