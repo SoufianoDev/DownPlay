@@ -258,6 +258,7 @@ def build_onefile_release(payload_dir: Path, verbose: bool) -> Path:
             "/link",
             f"/LIBPATH:{libs}",
             f"{py_lib}.lib",
+            "user32.lib",
             f"/OUT:{launcher_obj}",
         ]
     elif gcc:
@@ -270,6 +271,7 @@ def build_onefile_release(payload_dir: Path, verbose: bool) -> Path:
             f"-I{include}",
             f"-L{libs}",
             f"-l{py_lib}",
+            "-luser32",
             "-o",
             str(launcher_obj),
         ]
