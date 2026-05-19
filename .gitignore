@@ -1,0 +1,68 @@
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.build-venv/
+.venv/
+venv/
+env/
+ENV/
+
+# py2c/Cython build outputs
+build/
+release/
+dist/
+*.egg-info/
+
+# Native/compiler artifacts
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.dylib
+*.dll
+*.exe
+*.pdb
+*.ilk
+
+# Generated Cython files
+*.c
+*.cpp
+*.html
+!src/wrapper/*.c
+!src/wrapper/libft/*.c
+
+# Local runtime/output files
+downloads/
+output/
+downplay
+downplay.exe
+*.part
+*.ytdl
+*.mp4
+*.mkv
+*.webm
+*.m4a
+*.mp3
+
+# Editor and OS metadata
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Local environment files
+.env
+.env.*
+!.env.example

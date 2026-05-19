@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  linux:
+    name: Linux
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Verify source
+        run: python3 -m py_compile src/main.py py2c_windows.py
+
+      - name: Verify wrapper
+        run: ./py2c verify
+
+      - name: Build debug binary
+        run: ./py2c --auto-install assembleDebug
+
+      - name: Smoke test
+        run: ./build/downplay -v
+
+  windows:
+    name: Windows
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Verify source
+        run: python -m py_compile src/main.py py2c_windows.py
+
+      - name: Verify wrapper
+        run: python py2c_windows.py verify
+
+      - name: Build debug binary
+        run: python py2c_windows.py --auto-install assembleDebug
+
+      - name: Smoke test
+        run: .\build\downplay.exe -v
+

@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+WRAPPER_SRC="$ROOT/src/wrapper/py2c.c"
+LIBFT_DIR="$ROOT/src/wrapper/libft"
+BOOTSTRAP_DIR="$ROOT/build/wrapper"
+WRAPPER_BIN="$BOOTSTRAP_DIR/py2c"
+
+if [ ! -x "$WRAPPER_BIN" ] || [ "$WRAPPER_SRC" -nt "$WRAPPER_BIN" ] || [ "$LIBFT_DIR/libft.h" -nt "$WRAPPER_BIN" ]; then
+	mkdir -p "$BOOTSTRAP_DIR"
+	make -C "$LIBFT_DIR" >/dev/null
+	cc -Wall -Wextra -Wno-format-truncation "$WRAPPER_SRC" -I"$LIBFT_DIR" -L"$LIBFT_DIR" -lft -o "$WRAPPER_BIN"
+fi
+
+exec "$WRAPPER_BIN" "$@"
