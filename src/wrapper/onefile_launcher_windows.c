@@ -253,13 +253,13 @@ static void build_command_line(wchar_t *out, size_t outsz, int argc, wchar_t **a
 	size_t pos;
 
 	pos = 0;
-	for (int i = 1; i < argc; i++)
+	for (int i = 0; i < argc; i++)
 	{
 		const wchar_t *arg;
 		size_t j;
 
 		arg = argv[i];
-		if (i > 1 && pos + 1 < outsz)
+		if (i > 0 && pos + 1 < outsz)
 			out[pos++] = L' ';
 		if (pos + 1 < outsz)
 			out[pos++] = L'"';
