@@ -8,17 +8,21 @@ This section is for users who only want to download videos and do not care about
 
 ### What You Need
 
-You only need the ready-made DownPlay executable:
+You only need the ready-made DownPlay executable, which you can download from the [GitHub Releases](../../releases) page:
+
+For Linux:
 
 ```text
-downplay
+downplay-linux-x86_64
 ```
 
-On Windows, the executable is:
+For Windows:
 
 ```text
-downplay.exe
+downplay-windows-x64.exe
 ```
+
+*(You can rename these to `downplay` or `downplay.exe` for convenience after downloading).*
 
 You do not need to install:
 
@@ -265,6 +269,15 @@ release/downplay
 - Uses optimized native build flags.
 
 The release executable extracts its private runtime internally before launching the compiled application.
+
+## Releases & CI/CD
+
+DownPlay uses GitHub Actions to fully automate its release engineering:
+- On every push of a new version tag (e.g., `v1.0.0`), the [release.yml](.github/workflows/release.yml) workflow triggers automatically.
+- It spins up isolated Ubuntu and Windows runners.
+- The pipeline securely bootstraps the `py2c` C compiler toolchain, Python environment, and dependencies (`yt-dlp`).
+- It seamlessly bundles everything into architecture-specific, zero-dependency, single-file executables (`downplay-linux-x86_64` and `downplay-windows-x64.exe`).
+- The final artifacts are published directly to the GitHub Releases page.
 
 ## Project Layout
 
