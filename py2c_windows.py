@@ -112,7 +112,7 @@ def make_wrapper(mode: str, pyver: str, sitepackages_value: str, root_value: str
   _putenv_s("PYTHONTRACEMALLOC", "1");
   snprintf(path, sizeof(path), "{root_value}\\\\src;{sitepackages_value}");
   _putenv_s("PYTHONPATH", path);
-  fprintf(stderr, "[py2c-debug] exe=%s\\n", argv[0]);
+  fprintf(stderr, "[py2c-debug] exe=%ls\\n", argv[0]);
   fprintf(stderr, "[py2c-debug] PYTHONPATH=%s\\n", path);
 """
     return f"""#include <stdio.h>
@@ -120,13 +120,12 @@ def make_wrapper(mode: str, pyver: str, sitepackages_value: str, root_value: str
 #include <string.h>
 #include <windows.h>
 
-int __real_main(int argc, char **argv);
+int __real_main(int argc, wchar_t **argv);
 
-static void exe_dir(char *out, size_t size, char **argv) {{
+static void exe_dir(char *out, size_t size) {{
   DWORD n = GetModuleFileNameA(NULL, out, (DWORD)size - 1);
   if (n == 0) {{
-    strncpy(out, argv[0], size - 1);
-    out[size - 1] = '\\0';
+    strcpy(out, ".");
   }} else {{
     out[n] = '\\0';
   }}
@@ -136,10 +135,10 @@ static void exe_dir(char *out, size_t size, char **argv) {{
   else strcpy(out, ".");
 }}
 
-int main(int argc, char **argv) {{
+int wmain(int argc, wchar_t **argv) {{
   char dir[4096];
   char path[8192];
-  exe_dir(dir, sizeof(dir), argv);
+  exe_dir(dir, sizeof(dir));
 {runtime_setup}
   return __real_main(argc, argv);
 }}
@@ -163,6 +162,7 @@ def compile_binary(mode: str, verbose: bool) -> Path:
         cmd = [
             "cl",
             "/nologo",
+            "/municode",
             *flags,
             str(main_c),
             str(wrapper_c),
@@ -176,6 +176,7 @@ def compile_binary(mode: str, verbose: bool) -> Path:
         flags = ["-O3", "-DNDEBUG"] if mode == "release" else ["-O0", "-g3", "-DDEBUG"]
         cmd = [
             "gcc",
+            "-municode",
             str(main_c),
             str(wrapper_c),
             *flags,
