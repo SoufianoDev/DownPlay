@@ -244,7 +244,6 @@ def build_ytdlp_options(args, mode, tracker):
         merge_format = 'mp4'
         postprocessors = [{
             'key': 'FFmpegMerger',
-            'already_have_file': False,
         }]
         ffmpeg_loc = str(ffmpeg_dir) if ffmpeg_dir else None
     else:
