@@ -319,6 +319,7 @@ int wmain(int argc, wchar_t **argv)
 	wchar_t path_env[32768];
 	wchar_t cmdline[32768];
 	wchar_t path_old[32768];
+	char root_utf8[PATHBUF];
 	FILE *fp;
 	long off;
 	DWORD n;
