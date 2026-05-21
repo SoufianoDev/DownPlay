@@ -35,42 +35,58 @@ You do not need to install:
 
 ### How to Run It
 
+Run it directly
+
+##OR
+
 Open a terminal in the folder where the `downplay` file is located.
 
-On Linux:
+###On Linux:
+
+Step 1:
+
+Giving execute permissions to the executable file
 
 ```sh
-./downplay -u "PASTE_YOUTUBE_LINK_HERE" -o downloads
+chmod +x downplay-linux-x86_64
+```
+
+Step 2:
+
+```sh
+./downplay-linux-x86_64 -u "PASTE_YOUTUBE_LINK_HERE" -o downloads
 ```
 
 On Windows Command Prompt:
 
 ```bat
-downplay.exe -u "PASTE_YOUTUBE_LINK_HERE" -o downloads
+downplay-windows-x64.exe -u "PASTE_YOUTUBE_LINK_HERE" -o downloads
 ```
 
 On Windows PowerShell:
 
 ```powershell
-.\downplay.exe -u "PASTE_YOUTUBE_LINK_HERE" -o downloads
+.\downplay-windows-x64.exe -u "PASTE_YOUTUBE_LINK_HERE" -o downloads
 ```
 
 Example:
 
+Linux:
+
 ```sh
-./downplay -u "https://www.youtube.com/watch?v=VIDEO_ID" -o downloads
+./downplay-linux-x86_64 -u "https://www.youtube.com/watch?v=VIDEO_ID" -o downloads
 ```
 
 Windows Command Prompt example:
 
 ```bat
-downplay.exe -u "https://www.youtube.com/watch?v=VIDEO_ID" -o downloads
+downplay-windows-x64.exe -u "https://www.youtube.com/watch?v=VIDEO_ID" -o downloads
 ```
 
 Windows PowerShell example:
 
 ```powershell
-.\downplay.exe -u "https://www.youtube.com/watch?v=VIDEO_ID" -o downloads
+.\downplay-windows-x64.exe -u "https://www.youtube.com/watch?v=VIDEO_ID" -o downloads
 ```
 
 For a playlist:
